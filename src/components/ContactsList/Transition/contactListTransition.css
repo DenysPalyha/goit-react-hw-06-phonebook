@@ -1,0 +1,21 @@
+.contscts-list-transition-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.contscts-list-transition-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 250ms linear;
+}
+
+.contscts-list-transition-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.contscts-list-transition-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: all 250ms linear;
+}
