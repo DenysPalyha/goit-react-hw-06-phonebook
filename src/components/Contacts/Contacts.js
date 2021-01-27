@@ -4,27 +4,18 @@ import ContactsForm from '../ContactsForm/ContactsForm';
 import ContactsList from '../ContactsList/ContactsList';
 import Filter from '../Filter/Filter';
 import Notification from '../Notification/Notification';
-import { getContactsFormLs } from '../../redux/actions/contactsActions';
 import { CSSTransition } from 'react-transition-group';
 import '../ContactsForm/Transition/ContactsFormTransition.css';
 import './Contacts.css';
 import './Transition/ContactsTransition.css';
 import '../Filter/Transition/Filter-transition.css';
 import '../Notification/Transition/notificationTransition.css';
+import '../ContactsList/Transition/contactListTransition.css';
 
 class Contacts extends Component {
   state = {
     isOpenModal: false,
   };
-
-  componentDidMount() {
-    const getLocalstoreg = localStorage.getItem('contacts');
-
-    if (getLocalstoreg) {
-      const localStorageData = JSON.parse(localStorage.getItem('contacts'));
-      this.props.getParseContacts(localStorageData);
-    }
-  }
 
   hendleIsOpenModal = () => {
     this.setState({ isOpenModal: true });
@@ -74,7 +65,14 @@ class Contacts extends Component {
           <Filter />
         </CSSTransition>
 
-        <ContactsList />
+        <CSSTransition
+          in={this.props.contacts.length > 0}
+          timeout={250}
+          classNames="contacts-list-transition"
+          unmountOnExit
+        >
+          <ContactsList />
+        </CSSTransition>
       </>
     );
   }
@@ -86,8 +84,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = {
-  getParseContacts: getContactsFormLs,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Contacts);
+export default connect(mapStateToProps)(Contacts);

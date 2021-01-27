@@ -3,7 +3,6 @@ import {
   addContacts,
   searchFilter,
   contactsDelete,
-  getContactsFormLs,
 } from '../actions/contactsActions';
 
 const initialeState = {
@@ -12,19 +11,6 @@ const initialeState = {
 };
 
 const addContactsReducer = (state, action) => {
-  const getContacts = localStorage.getItem('contacts');
-
-  const contact = action.payload;
-
-  if (!getContacts) {
-    localStorage.setItem('contacts', JSON.stringify([contact]));
-  } else {
-    const parseContacts = JSON.parse(getContacts);
-    localStorage.setItem(
-      'contacts',
-      JSON.stringify([contact, ...parseContacts]),
-    );
-  }
 
   return {
     ...state,
@@ -32,17 +18,7 @@ const addContactsReducer = (state, action) => {
   };
 };
 
-const getContactsFormLsReduser = (state, action) => ({
-  ...state,
-  contacts: action.payload,
-});
-
 const deleteContactsReducer = (state, action) => {
-  const localStorageData = JSON.parse(localStorage.getItem('contacts'));
-  const newLocalStorageData = localStorageData.filter(
-    contact => contact.id !== action.payload,
-  );
-  localStorage.setItem('contacts', JSON.stringify(newLocalStorageData));
   return {
     ...state,
     contacts: [
@@ -62,6 +38,5 @@ export const contactsReducer = createReducer(
     [addContacts]: addContactsReducer,
     [contactsDelete]: deleteContactsReducer,
     [searchFilter]: searchContactsReducer,
-    [getContactsFormLs]: getContactsFormLsReduser,
   },
 );

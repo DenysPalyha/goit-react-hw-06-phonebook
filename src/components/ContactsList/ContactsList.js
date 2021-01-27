@@ -17,7 +17,7 @@ const ContactsList = ({ contacts, contactsDelete }) => {
         <CSSTransition
           key={contact.id}
           timeout={250}
-          classNames="contscts-list-transition"
+          classNames="contacts-list-transition"
           unmountOnExit
         >
           <ContactsListItem
